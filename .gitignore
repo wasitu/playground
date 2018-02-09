@@ -23,7 +23,8 @@ xcuserdata
 *.xcscmblueprint
 
 ## Playground
-*.xctimeline
+timeline.xctimeline
+playground.xcworkspace
 
 ## Obj-C/Swift specific
 *.hmap
