@@ -22,6 +22,9 @@ xcuserdata
 *.xcuserstate
 *.xcscmblueprint
 
+## Playground
+*.xctimeline
+
 ## Obj-C/Swift specific
 *.hmap
 *.ipa
