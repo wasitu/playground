@@ -41,7 +41,7 @@ public class HighlightingView: UIView {
         
         layer.mask = gradientLayer
         
-        observer = NotificationCenter.default.addObserver(forName: .UIApplicationDidBecomeActive, object: nil, queue: nil) { [weak self] (notification) in
+        observer = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] (notification) in
             if self?.isAnimating ?? false { self?.startAnimation() }
         }
     }

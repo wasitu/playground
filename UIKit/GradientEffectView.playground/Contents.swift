@@ -21,21 +21,20 @@ stackView.addArrangedSubview(label)
 
 let rect = UIView()
 rect.backgroundColor = UIColor.red
-rect.addConstraints([NSLayoutAttribute.width, NSLayoutAttribute.height].map {
-    NSLayoutConstraint(item: rect, attribute: $0, relatedBy: .equal, toItem: nil, attribute: $0, multiplier: 1, constant: 24)
-})
+
 stackView.addArrangedSubview(rect)
-
 gradientEffectView.addSubview(stackView)
-gradientEffectView.addConstraints([
-    NSLayoutAttribute.top,
-    NSLayoutAttribute.left,
-    NSLayoutAttribute.bottom,
-    NSLayoutAttribute.right
-    ].map { NSLayoutConstraint(item: stackView, attribute: $0, relatedBy: .equal, toItem: gradientEffectView, attribute: $0, multiplier: 1, constant: 0) })
-
 liveView.addSubview(gradientEffectView)
-liveView.addConstraints([
-    NSLayoutAttribute.centerX,
-    NSLayoutAttribute.centerY
-    ].map { NSLayoutConstraint(item: gradientEffectView, attribute: $0, relatedBy: .equal, toItem: liveView, attribute: $0, multiplier: 1, constant: 0) })
+
+NSLayoutConstraint.activate([
+    rect.widthAnchor.constraint(equalToConstant: 24),
+    rect.heightAnchor.constraint(equalToConstant: 24),
+    
+    gradientEffectView.topAnchor.constraint(equalTo: stackView.topAnchor),
+    gradientEffectView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+    gradientEffectView.leftAnchor.constraint(equalTo: stackView.leftAnchor),
+    gradientEffectView.rightAnchor.constraint(equalTo: stackView.rightAnchor),
+    
+    liveView.centerXAnchor.constraint(equalTo: gradientEffectView.centerXAnchor),
+    liveView.centerYAnchor.constraint(equalTo: gradientEffectView.centerYAnchor)
+    ])

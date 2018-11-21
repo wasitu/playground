@@ -10,9 +10,13 @@ imageView.contentMode = .scaleAspectFit
 let rotatedImageView = UIImageView(image: UIImage(named: "logo"))
 rotatedImageView.contentMode = .scaleAspectFit
 
-var perspectiveTransform = CATransform3DIdentity
-perspectiveTransform.m34 = -(1.0 / liveView.bounds.width)
-rotatedImageView.layer.transform = CATransform3DRotate(perspectiveTransform, CGFloat(.pi / 4.0), 1.0, 1.0, 0)
+// build  an animation
+let animation = CABasicAnimation(keyPath: "transform")
+animation.fromValue = CATransform3DRotate(CATransform3DIdentity, -0.5 * .pi, 1.0, 1.0, 0)
+animation.toValue = CATransform3DRotate(CATransform3DIdentity, 0.5 * .pi, 1.0, 1.0, 0)
+animation.repeatCount = .infinity
+animation.duration = 1.5
+rotatedImageView.layer.add(animation, forKey: "transform")
 
 let stackView = UIStackView()
 stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -23,12 +27,12 @@ stackView.addArrangedSubview(imageView)
 stackView.addArrangedSubview(rotatedImageView)
 
 liveView.addSubview(stackView)
-liveView.addConstraints([
-    NSLayoutAttribute.top,
-    NSLayoutAttribute.bottom,
-    NSLayoutAttribute.left,
-    NSLayoutAttribute.right,
-    ].map { NSLayoutConstraint(item: stackView, attribute: $0, relatedBy: .equal, toItem: liveView, attribute: $0, multiplier: 1, constant: 0) })
+
+NSLayoutConstraint.activate([
+    stackView.topAnchor.constraint(equalTo: liveView.topAnchor),
+    stackView.bottomAnchor.constraint(equalTo: liveView.bottomAnchor),
+    stackView.leftAnchor.constraint(equalTo: liveView.leftAnchor),
+    stackView.rightAnchor.constraint(equalTo: liveView.rightAnchor),
+    ])
 
 PlaygroundPage.current.liveView = liveView
-PlaygroundPage.current.needsIndefiniteExecution = true

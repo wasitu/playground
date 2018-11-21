@@ -14,6 +14,7 @@ let stackView = UIStackView()
 stackView.translatesAutoresizingMaskIntoConstraints = false
 stackView.axis = .horizontal
 stackView.spacing = 16
+highlightingView.addSubview(stackView)
 
 let label = UILabel()
 label.text = "HIGHLIGHTING"
@@ -22,21 +23,19 @@ stackView.addArrangedSubview(label)
 
 let rect = UIView()
 rect.backgroundColor = UIColor.red
-rect.addConstraints([NSLayoutAttribute.width, NSLayoutAttribute.height].map {
-    NSLayoutConstraint(item: rect, attribute: $0, relatedBy: .equal, toItem: nil, attribute: $0, multiplier: 1, constant: 24)
-})
 stackView.addArrangedSubview(rect)
 
-highlightingView.addSubview(stackView)
-highlightingView.addConstraints([
-    NSLayoutAttribute.top,
-    NSLayoutAttribute.left,
-    NSLayoutAttribute.bottom,
-    NSLayoutAttribute.right
-    ].map { NSLayoutConstraint(item: stackView, attribute: $0, relatedBy: .equal, toItem: highlightingView, attribute: $0, multiplier: 1, constant: 0) })
-
 liveView.addSubview(highlightingView)
-liveView.addConstraints([
-    NSLayoutAttribute.centerX,
-    NSLayoutAttribute.centerY
-    ].map { NSLayoutConstraint(item: highlightingView, attribute: $0, relatedBy: .equal, toItem: liveView, attribute: $0, multiplier: 1, constant: 0) })
+
+NSLayoutConstraint.activate([
+    rect.widthAnchor.constraint(equalToConstant: 24),
+    rect.heightAnchor.constraint(equalToConstant: 24),
+    
+    highlightingView.topAnchor.constraint(equalTo: stackView.topAnchor),
+    highlightingView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+    highlightingView.leftAnchor.constraint(equalTo: stackView.leftAnchor),
+    highlightingView.rightAnchor.constraint(equalTo: stackView.rightAnchor),
+
+    liveView.centerXAnchor.constraint(equalTo: highlightingView.centerXAnchor),
+    liveView.centerYAnchor.constraint(equalTo: highlightingView.centerYAnchor)
+    ])
